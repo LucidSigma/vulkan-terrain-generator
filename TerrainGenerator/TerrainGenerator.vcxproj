@@ -162,6 +162,7 @@
     <ClCompile Include="src\engine\vendor\vma\VMAImplementation.cpp" />
     <ClCompile Include="src\engine\window\Window.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\terrain_generator\TerrainGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\graphics\buffers\Buffer.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\engine\utility\interfaces\INoncopyable.h" />
     <ClInclude Include="src\engine\utility\interfaces\INonmovable.h" />
     <ClInclude Include="src\engine\window\Window.h" />
+    <ClInclude Include="src\terrain_generator\TerrainGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
