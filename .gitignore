@@ -1,2 +1,3 @@
 .vs
-*.vcxproj*
+x64/
+TerrainGenerator/x64/
