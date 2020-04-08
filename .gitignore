@@ -1,3 +1,7 @@
 .vs
 x64/
 TerrainGenerator/x64/
+TerrainGenerator/dep/glm-0.9.9.7/
+TerrainGenerator/dep/SDL2-2.0.12/
+TerrainGenerator/dep/SPIRV-Cross-0.25/
+TerrainGenerator/dep/vma-2.3.0/
