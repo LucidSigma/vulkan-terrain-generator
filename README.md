@@ -9,3 +9,4 @@ This is my first major project with Vulkan.
 * [GLM](https://glm.g-truc.net/0.9.9/index.html)
 * [SPIR-V Cross](https://github.com/KhronosGroup/SPIRV-Cross)
 * [Vulkan Memory Allocator](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator)
+* [STB Image](https://github.com/nothings/stb)

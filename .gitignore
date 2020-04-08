@@ -1,7 +1,10 @@
-.vs
+.vs/
 x64/
 TerrainGenerator/x64/
+TerrainGenerator/assets/shaders/compile.bat
+TerrainGenerator/assets/shaders/glslc.exe
 TerrainGenerator/dep/glm-0.9.9.7/
 TerrainGenerator/dep/SDL2-2.0.12/
 TerrainGenerator/dep/SPIRV-Cross-0.25/
+TerrainGenerator/dep/stb_image-2.25/
 TerrainGenerator/dep/vma-2.3.0/

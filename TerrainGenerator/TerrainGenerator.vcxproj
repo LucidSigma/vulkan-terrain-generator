@@ -100,7 +100,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)dep\SDL2-2.0.12\include;C:\VulkanSDK\1.2.131.1\Include;$(ProjectDir)dep\glm-0.9.9.7\include;$(ProjectDir)dep\SPIRV-Cross-0.25\include;$(ProjectDir)dep\vma-2.3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)dep\SDL2-2.0.12\include;C:\VulkanSDK\1.2.131.1\Include;$(ProjectDir)dep\glm-0.9.9.7\include;$(ProjectDir)dep\SPIRV-Cross-0.25\include;$(ProjectDir)dep\vma-2.3.0\include;$(ProjectDir)dep\stb_image-2.25\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +135,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)dep\SDL2-2.0.12\include;C:\VulkanSDK\1.2.131.1\Include;$(ProjectDir)dep\glm-0.9.9.7\include;$(ProjectDir)dep\SPIRV-Cross-0.25\include;$(ProjectDir)dep\vma-2.3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)dep\SDL2-2.0.12\include;C:\VulkanSDK\1.2.131.1\Include;$(ProjectDir)dep\glm-0.9.9.7\include;$(ProjectDir)dep\SPIRV-Cross-0.25\include;$(ProjectDir)dep\vma-2.3.0\include;$(ProjectDir)dep\stb_image-2.25\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,7 +148,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\graphics\buffers\Buffer.cpp" />
+    <ClCompile Include="src\engine\graphics\buffers\IndexBuffer.cpp" />
+    <ClCompile Include="src\engine\graphics\buffers\UniformBuffer.cpp" />
+    <ClCompile Include="src\engine\graphics\buffers\VertexBuffer.cpp" />
+    <ClCompile Include="src\engine\graphics\pipeline\GraphicsPipeline.cpp" />
+    <ClCompile Include="src\engine\graphics\pipeline\ShaderModule.cpp" />
+    <ClCompile Include="src\engine\graphics\renderer\Renderer.cpp" />
+    <ClCompile Include="src\engine\graphics\renderer\VulkanContext.cpp" />
+    <ClCompile Include="src\engine\graphics\renderer\VulkanUtility.cpp" />
+    <ClCompile Include="src\engine\graphics\renderer\VulkanValidationLayers.cpp" />
+    <ClCompile Include="src\engine\vendor\stb_image\STBImageImplementation.cpp" />
+    <ClCompile Include="src\engine\vendor\vma\VMAImplementation.cpp" />
+    <ClCompile Include="src\engine\window\Window.cpp" />
     <ClCompile Include="src\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\engine\graphics\buffers\Buffer.h" />
+    <ClInclude Include="src\engine\graphics\buffers\IndexBuffer.h" />
+    <ClInclude Include="src\engine\graphics\buffers\UniformBuffer.h" />
+    <ClInclude Include="src\engine\graphics\buffers\VertexBuffer.h" />
+    <ClInclude Include="src\engine\graphics\pipeline\GraphicsPipeline.h" />
+    <ClInclude Include="src\engine\graphics\pipeline\ShaderModule.h" />
+    <ClInclude Include="src\engine\graphics\renderer\Renderer.h" />
+    <ClInclude Include="src\engine\graphics\renderer\VulkanContext.h" />
+    <ClInclude Include="src\engine\graphics\renderer\VulkanUtility.h" />
+    <ClInclude Include="src\engine\graphics\renderer\VulkanValidationLayers.h" />
+    <ClInclude Include="src\engine\graphics\Uniform.h" />
+    <ClInclude Include="src\engine\graphics\Vertex.h" />
+    <ClInclude Include="src\engine\utility\interfaces\INoncopyable.h" />
+    <ClInclude Include="src\engine\utility\interfaces\INonmovable.h" />
+    <ClInclude Include="src\engine\window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
