@@ -162,7 +162,9 @@
     <ClCompile Include="src\engine\vendor\vma\VMAImplementation.cpp" />
     <ClCompile Include="src\engine\window\Window.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\terrain_generator\Chunk.cpp" />
     <ClCompile Include="src\terrain_generator\TerrainGenerator.cpp" />
+    <ClCompile Include="src\terrain_generator\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\graphics\buffers\Buffer.h" />
@@ -180,7 +182,13 @@
     <ClInclude Include="src\engine\utility\interfaces\INoncopyable.h" />
     <ClInclude Include="src\engine\utility\interfaces\INonmovable.h" />
     <ClInclude Include="src\engine\window\Window.h" />
+    <ClInclude Include="src\terrain_generator\Chunk.h" />
     <ClInclude Include="src\terrain_generator\TerrainGenerator.h" />
+    <ClInclude Include="src\terrain_generator\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\terrain.frag" />
+    <None Include="assets\shaders\terrain.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

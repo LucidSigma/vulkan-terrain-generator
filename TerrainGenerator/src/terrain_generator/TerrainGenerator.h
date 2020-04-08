@@ -8,13 +8,11 @@
 
 #include "../engine/window/Window.h"
 #include "../engine/graphics/renderer/Renderer.h"
+#include "World.h"
 
 class TerrainGenerator
 {
 private:
-	static constexpr float s_NearPlane = 0.1f;
-	static constexpr float s_FarPlane = 1000.0f;
-
 	static constexpr glm::uvec2 s_InitialWindowSize{ 1280u, 720u };
 
 	Window m_window;
@@ -23,9 +21,7 @@ private:
 	bool m_isRunning = true;
 	bool m_isPaused = false;
 
-	// Terrain graphics pipeline.
-	// World and chunks.
-	// Perspective matrix.
+	std::unique_ptr<World> m_world = nullptr;
 
 public:
 	TerrainGenerator();

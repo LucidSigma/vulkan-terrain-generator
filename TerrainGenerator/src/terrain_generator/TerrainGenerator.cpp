@@ -50,6 +50,8 @@ void TerrainGenerator::Run()
 				case SDL_WINDOWEVENT_MINIMIZED:
 					m_renderer->ProcessWindowResize();
 
+					m_world->ProcessWindowResize(m_window);
+
 					break;
 
 				case SDL_WINDOWEVENT_FOCUS_LOST:
@@ -86,7 +88,7 @@ void TerrainGenerator::Run()
 
 				m_renderer->BeginRender(SkyClearColour);
 				{
-
+					m_world->Render();
 				}
 				m_renderer->EndRender();
 
@@ -105,11 +107,15 @@ void TerrainGenerator::Initialise()
 
 	m_window.Create("Terrain Generator", s_InitialWindowSize);
 	m_renderer = std::make_unique<Renderer>(m_window);
+
+	m_world = std::make_unique<World>(*m_renderer, m_window);
 }
 
 void TerrainGenerator::Destroy() noexcept
 {
 	m_renderer->FinaliseRenderOperations();
+	
+	m_world = nullptr;
 	m_renderer = nullptr;
 
 	m_window.Destroy();
