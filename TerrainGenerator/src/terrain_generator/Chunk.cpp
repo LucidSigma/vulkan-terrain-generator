@@ -75,24 +75,49 @@ void Chunk::InitialiseVertices()
 	{
 		for (std::size_t z = 0; z < s_ChunkWidth; ++z)
 		{
+			// Replace with proper biome colour function.
+			constexpr auto GetColour = [](const float noiseValue) -> glm::vec3
+			{
+				if (noiseValue < 8)
+				{
+					return glm::vec3{ 0.0f, 0.0f, 1.0f };
+				}
+				else if (noiseValue < 16)
+				{
+					return glm::vec3{ 0.0f, 0.5f, 1.0f };
+				}
+				else if (noiseValue < 48)
+				{
+					return glm::vec3{ 0.0f, 1.0f, 0.0f };
+				}
+				else if (noiseValue < 80)
+				{
+					return glm::vec3{ 0.4f, 0.2f, 0.1f };
+				}
+				else
+				{
+					return glm::vec3{ 1.0f, 1.0f, 1.0f };
+				}
+			};
+
 			chunkVertices.push_back({
 				glm::vec3{ x, noiseMap[x][z], z },
-				glm::vec3{ 0.0f, 1.0f, 0.0f }
+				GetColour(noiseMap[x][z])
 			});
 
 			chunkVertices.push_back({
 				glm::vec3{ 1.0f + x, noiseMap[x + 1][z], z },
-				glm::vec3{ 0.0f, 1.0f, 0.0f }
+				GetColour(noiseMap[x][z])
 			});
 
 			chunkVertices.push_back({
 				glm::vec3{ x, noiseMap[x][z + 1], 1.0f + z },
-				glm::vec3{ 0.0f, 1.0f, 0.0f }
+				GetColour(noiseMap[x][z])
 			});
 
 			chunkVertices.push_back({
 				glm::vec3{ 1.0f + x, noiseMap[x + 1][z + 1], 1.0f + z },
-				glm::vec3{ 0.0f, 1.0f, 0.0f }
+				GetColour(noiseMap[x][z])
 			});
 
 			chunkIndices.push_back(indexCount + 0);

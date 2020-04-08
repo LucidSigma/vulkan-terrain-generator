@@ -162,6 +162,7 @@
     <ClCompile Include="src\engine\vendor\vma\VMAImplementation.cpp" />
     <ClCompile Include="src\engine\window\Window.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\terrain_generator\Camera3D.cpp" />
     <ClCompile Include="src\terrain_generator\Chunk.cpp" />
     <ClCompile Include="src\terrain_generator\TerrainGenerator.cpp" />
     <ClCompile Include="src\terrain_generator\World.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="src\engine\utility\interfaces\INoncopyable.h" />
     <ClInclude Include="src\engine\utility\interfaces\INonmovable.h" />
     <ClInclude Include="src\engine\window\Window.h" />
+    <ClInclude Include="src\terrain_generator\Camera3D.h" />
     <ClInclude Include="src\terrain_generator\Chunk.h" />
     <ClInclude Include="src\terrain_generator\TerrainGenerator.h" />
     <ClInclude Include="src\terrain_generator\World.h" />

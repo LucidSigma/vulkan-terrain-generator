@@ -12,12 +12,13 @@ World::World(Renderer& renderer, const Window& window)
 	Initialise(window);
 
 	// Replace with chunk generation
-	m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ 0, 0 }));
-	m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ 0, 1 }));
-	m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ 0, 2 }));
-	m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ 1, 0 }));
-	m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ 0, -1 }));
-	m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ -1, 0 }));
+	for (int i = -12; i <= 12; ++i)
+	{
+		for (int j = -12; j <= 12; ++j)
+		{
+			m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ i, j }));
+		}
+	}
 }
 
 World::~World() noexcept
@@ -26,12 +27,23 @@ World::~World() noexcept
 	m_terrainPipeline->Destroy();
 }
 
+void World::ProcessInput()
+{
+	m_camera.ProcessInput();
+}
+
+void World::Update(const float deltaTime)
+{
+	m_camera.Update(deltaTime);
+
+	// Process chunk management here.
+}
+
 void World::Render()
 {
 	m_renderer.BindPipeline(*m_terrainPipeline);
 
-	// Set camera view matrix here
-	const std::array<glm::mat4, 2> viewProjection{ glm::lookAtLH(glm::vec3(64.0f, 128.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)), m_projection };
+	const std::array<glm::mat4, 2> viewProjection{ m_camera.GetViewMatrix(), m_projection };
 	m_terrainPipeline->SetUniform(0, viewProjection);
 	m_renderer.BindDescriptorSet(*m_terrainPipeline);
 
