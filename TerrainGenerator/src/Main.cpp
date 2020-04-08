@@ -1,20 +1,11 @@
-#include <chrono>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
-#include <random>
 
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/noise.hpp>
 #include <SDL2/SDL.h>
 
 #include "engine/window/Window.h"
-#include "engine/graphics/pipeline/GraphicsPipeline.h"
 #include "engine/graphics/renderer/Renderer.h"
-#include "engine/graphics/Uniform.h"
-#include "engine/graphics/Vertex.h"
 
 int main(const int argc, char* argv[])
 try
