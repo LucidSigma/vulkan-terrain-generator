@@ -1,6 +1,7 @@
 #include "Chunk.h"
 
 #include <cstdint>
+#include <utility>
 #include <vector>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -63,7 +64,7 @@ void Chunk::InitialiseVertices()
 {
 	const auto noiseMap = CreateNoiseMap(m_position);
 
-	std::vector<VertexP3C3> chunkVertices;
+	std::vector<VertexP3C3N3> chunkVertices;
 	chunkVertices.reserve(s_ChunkLength * s_ChunkWidth * 4);
 
 	std::vector<std::uint16_t> chunkIndices;
@@ -75,49 +76,38 @@ void Chunk::InitialiseVertices()
 	{
 		for (std::size_t z = 0; z < s_ChunkWidth; ++z)
 		{
-			// Replace with proper biome colour function.
-			constexpr auto GetColour = [](const float noiseValue) -> glm::vec3
-			{
-				if (noiseValue < 8)
-				{
-					return glm::vec3{ 0.0f, 0.0f, 1.0f };
-				}
-				else if (noiseValue < 16)
-				{
-					return glm::vec3{ 0.0f, 0.5f, 1.0f };
-				}
-				else if (noiseValue < 48)
-				{
-					return glm::vec3{ 0.0f, 1.0f, 0.0f };
-				}
-				else if (noiseValue < 80)
-				{
-					return glm::vec3{ 0.4f, 0.2f, 0.1f };
-				}
-				else
-				{
-					return glm::vec3{ 1.0f, 1.0f, 1.0f };
-				}
+			const std::pair<glm::vec3, glm::vec3> triangleA{
+				glm::vec3{ 1.0f + x, noiseMap[x + 1][z], z } - glm::vec3{ x, noiseMap[x][z], z },
+				glm::vec3{ x, noiseMap[x][z + 1], 1.0f + z } - glm::vec3{ x, noiseMap[x][z], z }
+			};
+
+			const std::pair<glm::vec3, glm::vec3> triangleB{
+				glm::vec3{ 1.0f + x, noiseMap[x + 1][z], z } - glm::vec3{ x, noiseMap[x][z + 1], 1.0f + z },
+				glm::vec3{ 1.0f + x, noiseMap[x + 1][z + 1], 1.0f + z } - glm::vec3{ x, noiseMap[x][z + 1], 1.0f + z }
 			};
 
 			chunkVertices.push_back({
 				glm::vec3{ x, noiseMap[x][z], z },
-				GetColour(noiseMap[x][z])
+				GetBiomeColour(noiseMap[x][z]),
+				glm::normalize(-glm::cross(triangleA.first, triangleA.second))
 			});
 
 			chunkVertices.push_back({
 				glm::vec3{ 1.0f + x, noiseMap[x + 1][z], z },
-				GetColour(noiseMap[x][z])
+				GetBiomeColour(noiseMap[x][z]),
+				glm::normalize(-glm::cross(triangleA.first, triangleA.second))
 			});
 
 			chunkVertices.push_back({
 				glm::vec3{ x, noiseMap[x][z + 1], 1.0f + z },
-				GetColour(noiseMap[x][z])
+				GetBiomeColour(noiseMap[x][z]),
+				glm::normalize(-glm::cross(triangleA.first, triangleA.second))
 			});
 
 			chunkVertices.push_back({
 				glm::vec3{ 1.0f + x, noiseMap[x + 1][z + 1], 1.0f + z },
-				GetColour(noiseMap[x][z])
+				GetBiomeColour(noiseMap[x][z]),
+				glm::normalize(-glm::cross(triangleB.first, triangleB.second))
 			});
 
 			chunkIndices.push_back(indexCount + 0);
@@ -133,4 +123,63 @@ void Chunk::InitialiseVertices()
 
 	m_vertexBuffer.Initialise(chunkVertices);
 	m_indexBuffer.Initialise(chunkIndices);
+}
+
+glm::vec3 Chunk::GetBiomeColour(const float height) const
+{
+	if (height < 8)
+	{
+		// Deep water
+		return glm::vec3{ 0.0f, 0.2f, 0.8f };
+	}
+	else if (height < 16)
+	{
+		// Water
+		return glm::vec3{ 0.0f, 0.5f, 1.0f };
+	}
+	else if (height < 20)
+	{
+		// Sand
+		return glm::vec3{ 1.0f, 1.0f, 0.5f };
+	}
+	else if (height < 32)
+	{
+		// Grass
+		return glm::vec3{ 0.2f, 0.8f, 0.1f };
+	}
+	else if (height < 36)
+	{
+		// Highlands grass
+		return glm::vec3{ 0.2f, 0.6f, 0.1f };
+	}
+	else if (height < 48)
+	{
+		// Mountainous grass
+		return glm::vec3{ 0.2f, 0.5f, 0.1f };
+	}
+	else if (height < 56)
+	{
+		// Mountain-grass connection
+		return glm::vec3{ 0.3f, 0.3f, 0.1f };
+	}
+	else if (height < 72)
+	{
+		// Mountain
+		return glm::vec3{ 0.4f, 0.2f, 0.1f };
+	}
+	else if (height < 88)
+	{
+		// High mountain
+		return glm::vec3{ 0.6f, 0.4f, 0.3f };
+	}
+	else if (height < 96)
+	{
+		// Very high mountain
+		return glm::vec3{ 1.0f, 0.8f, 0.7f };
+	}
+	else
+	{
+		// Snow cap
+		return glm::vec3{ 1.0f, 1.0f, 1.0f };
+	}
 }

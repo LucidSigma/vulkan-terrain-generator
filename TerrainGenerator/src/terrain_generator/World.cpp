@@ -11,10 +11,9 @@ World::World(Renderer& renderer, const Window& window)
 {
 	Initialise(window);
 
-	// Replace with chunk generation
-	for (int i = -12; i <= 12; ++i)
+	for (int i = -s_RenderDistance; i <= s_RenderDistance; ++i)
 	{
-		for (int j = -12; j <= 12; ++j)
+		for (int j = -s_RenderDistance; j <= s_RenderDistance; ++j)
 		{
 			m_chunks.emplace_back(std::make_unique<Chunk>(m_renderer, glm::ivec2{ i, j }));
 		}
@@ -71,7 +70,7 @@ void World::Initialise(const Window& window)
 
 		.enableDepthTest = true,
 		.drawWireframe = false,
-		.enableCullFace = false,
+		.enableCullFace = true,
 		.enableBlending = true
 	};
 

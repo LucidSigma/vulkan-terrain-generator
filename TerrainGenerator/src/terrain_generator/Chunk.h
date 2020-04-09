@@ -30,4 +30,5 @@ private:
 	static std::vector<std::vector<float>> CreateNoiseMap(const glm::ivec2& position);
 
 	void InitialiseVertices();
+	glm::vec3 GetBiomeColour(const float height) const;
 };

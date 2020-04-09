@@ -12,6 +12,8 @@
 class World
 {
 private:
+	static constexpr int s_RenderDistance = 16u;
+
 	Renderer& m_renderer;
 	std::unique_ptr<GraphicsPipeline> m_terrainPipeline = nullptr;
 
