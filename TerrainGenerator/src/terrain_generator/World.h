@@ -12,12 +12,12 @@
 class World
 {
 private:
-	static constexpr int s_RenderDistance = 16u;
+	static constexpr int s_RenderDistance = 32u;
 
 	Renderer& m_renderer;
 	std::unique_ptr<GraphicsPipeline> m_terrainPipeline = nullptr;
 
-	Camera3D m_camera{ glm::vec3{ 0.0f, 64.0f, 0.0f } };
+	Camera3D m_camera{ glm::vec3{ 0.0f, 80.0f, 0.0f } };
 	std::vector<std::unique_ptr<Chunk>> m_chunks;
 
 	glm::mat4 m_projection{ 1.0f };

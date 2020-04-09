@@ -53,7 +53,7 @@ std::vector<std::vector<float>> Chunk::CreateNoiseMap(const glm::ivec2& position
 			noiseMap[x][z] += 0.0625f * NormalisedSimplex(16.0f * glm::vec2{ normalisedX, normalisedZ });
 			noiseMap[x][z] = glm::pow(noiseMap[x][z], 2);
 
-			noiseMap[x][z] *= 48.0f;
+			noiseMap[x][z] *= 64.0f;
 		}
 	}
 
@@ -127,52 +127,52 @@ void Chunk::InitialiseVertices()
 
 glm::vec3 Chunk::GetBiomeColour(const float height) const
 {
-	if (height < 8)
+	if (height < 16)
 	{
 		// Deep water
 		return glm::vec3{ 0.0f, 0.2f, 0.8f };
 	}
-	else if (height < 16)
+	else if (height < 24)
 	{
 		// Water
 		return glm::vec3{ 0.0f, 0.5f, 1.0f };
 	}
-	else if (height < 20)
+	else if (height < 28)
 	{
 		// Sand
 		return glm::vec3{ 1.0f, 1.0f, 0.5f };
 	}
-	else if (height < 32)
+	else if (height < 40)
 	{
 		// Grass
 		return glm::vec3{ 0.2f, 0.8f, 0.1f };
 	}
-	else if (height < 36)
+	else if (height < 44)
 	{
 		// Highlands grass
 		return glm::vec3{ 0.2f, 0.6f, 0.1f };
 	}
-	else if (height < 48)
+	else if (height < 54)
 	{
 		// Mountainous grass
 		return glm::vec3{ 0.2f, 0.5f, 0.1f };
 	}
-	else if (height < 56)
+	else if (height < 64)
 	{
 		// Mountain-grass connection
 		return glm::vec3{ 0.3f, 0.3f, 0.1f };
 	}
-	else if (height < 72)
+	else if (height < 80)
 	{
 		// Mountain
 		return glm::vec3{ 0.4f, 0.2f, 0.1f };
 	}
-	else if (height < 88)
+	else if (height < 96)
 	{
 		// High mountain
 		return glm::vec3{ 0.6f, 0.4f, 0.3f };
 	}
-	else if (height < 96)
+	else if (height < 104)
 	{
 		// Very high mountain
 		return glm::vec3{ 1.0f, 0.8f, 0.7f };

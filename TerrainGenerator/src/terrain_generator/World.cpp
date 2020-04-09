@@ -35,7 +35,37 @@ void World::Update(const float deltaTime)
 {
 	m_camera.Update(deltaTime);
 
-	// Process chunk management here.
+	static glm::ivec2 previousChunk{ 0, 0 };
+	const glm::ivec2 currentChunk = glm::ivec2{ glm::round(m_camera.GetPosition().x / Chunk::GetChunkLength()), glm::round(m_camera.GetPosition().z / Chunk::GetChunkWidth()) };
+
+	if (currentChunk != previousChunk)
+	{
+		for (auto& chunk : m_chunks)
+		{
+			const float xDistanceFromCamera = chunk->GetPosition().x - (m_camera.GetPosition().x / Chunk::GetChunkLength());
+			const float zDistanceFromCamera = chunk->GetPosition().y - (m_camera.GetPosition().z / Chunk::GetChunkWidth());
+
+			if (xDistanceFromCamera > s_RenderDistance)
+			{
+				chunk = std::make_unique<Chunk>(m_renderer, glm::ivec2{ chunk->GetPosition().x - (s_RenderDistance * 2.0f), chunk->GetPosition().y });
+			}
+			else if (xDistanceFromCamera < -s_RenderDistance)
+			{
+				chunk = std::make_unique<Chunk>(m_renderer, glm::ivec2{ chunk->GetPosition().x + (s_RenderDistance * 2.0f), chunk->GetPosition().y });
+			}
+
+			else if (zDistanceFromCamera > s_RenderDistance)
+			{
+				chunk = std::make_unique<Chunk>(m_renderer, glm::ivec2{ chunk->GetPosition().x, chunk->GetPosition().y - (s_RenderDistance * 2.0f) });
+			}
+			else if (zDistanceFromCamera < -s_RenderDistance)
+			{
+				chunk = std::make_unique<Chunk>(m_renderer, glm::ivec2{ chunk->GetPosition().x, chunk->GetPosition().y + (s_RenderDistance * 2.0f) });
+			}
+		}
+	}
+
+	previousChunk = currentChunk;
 }
 
 void World::Render()
@@ -56,7 +86,7 @@ void World::ProcessWindowResize(const Window& window)
 {
 	m_terrainPipeline->RefreshUniformBuffers();
 
-	m_projection = glm::perspectiveLH(glm::radians(60.0f), static_cast<float>(window.GetDrawableSize().x) / static_cast<float>(window.GetDrawableSize().y), 0.1f, 1000.0f);
+	m_projection = glm::perspectiveLH(glm::radians(60.0f), static_cast<float>(window.GetDrawableSize().x) / static_cast<float>(window.GetDrawableSize().y), 0.1f, 2500.0f);
 	m_projection[1][1] *= -1.0f;
 }
 
@@ -76,6 +106,6 @@ void World::Initialise(const Window& window)
 
 	m_terrainPipeline = std::make_unique<GraphicsPipeline>(m_renderer, terrainPipelineConfig);
 
-	m_projection = glm::perspectiveLH(glm::radians(60.0f), static_cast<float>(window.GetDrawableSize().x) / static_cast<float>(window.GetDrawableSize().y), 0.1f, 1000.0f);
+	m_projection = glm::perspectiveLH(glm::radians(60.0f), static_cast<float>(window.GetDrawableSize().x) / static_cast<float>(window.GetDrawableSize().y), 0.1f, 2500.0f);
 	m_projection[1][1] *= -1.0f;
 }

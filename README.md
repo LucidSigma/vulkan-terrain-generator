@@ -1,7 +1,10 @@
 # Vulkan Terrain Generator
 A low-poly terrain generator made with C++17/Vulkan.  
 This is my first major project with Vulkan.  
-**Currently a work in progress.**
+The chunk management is horrible optimised and only done on a single thread, however the purpose of this project was to get a Vulkan renderer with basic terrain. The chunking and infinite generation was a last-second addition.  
+I may optimise it in the future, but for now, enjoy the frame skips. :P
+
+![Terrain](images/terrain.png)
 
 ## Dependencies
 * [SDL2](https://www.libsdl.org/download-2.0.php)
